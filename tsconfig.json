@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "lib": ["ESNext"],
+        "moduleResolution": "node",
+        "strict": false,
+        "typeRoots": ["./types"],
+        "types": ["craftos", "cc"]
+    },
+    "tstl": {
+        "luaTarget": "JIT",
+        "luaLibImport": "inline",
+        "luaBundle": "main.lua",
+        "luaBundleEntry": "main.ts"
+    },
+    "include": [
+        "./*.ts"
+    ]
+}

@@ -1,0 +1,6 @@
+{
+    "name": "craftos",
+    "version": "1.0.0",
+    "types": "./craftos.d.ts",
+    "files": ["./craftos.d.ts"]
+}
