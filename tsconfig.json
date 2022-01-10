@@ -10,7 +10,7 @@
     },
     "tstl": {
         "luaTarget": "JIT",
-        "luaLibImport": "require",
+        "luaLibImport": "inline",
         "luaBundle": "main.lua",
         "luaBundleEntry": "main.ts"
     },
