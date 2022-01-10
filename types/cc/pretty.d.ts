@@ -7,7 +7,6 @@ declare module "cc.pretty" {
     export const line: Doc;
     export const space_line: Doc;
     export function text(text: string, color?: number): Doc;
-    /** @vararg **/
     export function concat(...args: (Doc|string)[]): Doc;
     export function nest(depth: number, doc: Doc): Doc;
     export function group(doc: Doc): Doc;

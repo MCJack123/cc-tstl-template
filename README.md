@@ -1,8 +1,13 @@
 # cc-tstl-template
-Template project for ComputerCraft programs written in TypeScript.
+Template project for ComputerCraft programs written in TypeScript. Uses [TypeScriptToLua](https://typescripttolua.github.io) to compile with ComputerCraft typing declarations.
 
 ## Usage
-Simply clone this repository, run `npm install`, modify the `package.json` as you wish, and add your code to `main.ts`. Then use `npx tstl` to compile.
+1. Clone the repository (or download the ZIP).
+2. Run `npm install` to install dependencies, including TypeScriptToLua.
+3. Customize `package.json` if you want - it's not used in CC.
+4. Add your code to `main.ts`, and add other files as desired.
+5. Build the project with `npm run build`.
+6. Copy `main.lua` to ComputerCraft, either by copying into the computer folder, dropping on the terminal, using Pastebin, or with [CraftOS-PC Remote](https://remote.craftos-pc.cc) or [cloud-catcher](https://cloud-catcher.squiddev.cc).
 
 ## Libraries
 
@@ -30,6 +35,19 @@ while (true) {
     if (ev.id == timer) break;
 }
 ```
+
+## `tsconfig.json` Options
+The `tsconfig.json` file contains some options used by TypeScriptToLua to adjust how Lua code is generated. Some of these may be useful for CC development. See [the TSTL webpage](https://typescripttolua.github.io/docs/configuration) for the rest of the options.
+
+* `noImplicitSelf`: Controls whether functions have a `this`/`self`. By default, all functions are given a `self` parameter (even ones not in tables!) to allow JavaScript's `this` value to work. This can be disabled per-function with `/** @noSelf **/` or per-file with `/** @noSelfInFile **/`; but if you don't use `this` or don't want to have `self` added to functions, you can set this option to `true` to disable `this`/`self`.
+* `luaLibImport`: Controls how TypeScript polyfills are emitted in the Lua code. The following options are available:
+  * `inline`: Inserts the only required boilerplate code in each file. This is the default, and is recommended for projects with few files. However, this may generate duplicate code in projects with lots of files.
+  * `require`: Generates a single `lualib_bundle.lua` file with all of the boilerplate, and each script `require`s the file. This can generate more code than you need, however. Recommended for projects with lots of files and/or uses lots of JavaScript language features.
+  * `always`: Appears to be the same as `require`.
+  * `none`: Generates no boilerplate code. **Do not use this if you use ANY JavaScript features that do not have a 1:1 conversion to Lua.** Not recommended unless size is a major concern and TS is used simply for syntax. (You'll need to remove `event.ts` to use it.)
+* `sourceMapTraceback`: Overrides `debug.traceback` to add TypeScript source line numbers instead of Lua lines. This changes globals, so it's not recommended in production, but it can be useful for debugging.
+* `luaBundle`: Defines the name of the output Lua file - all TypeScript sources are bundled into this file. If unset, each file will be output separately with the same name as the TS source. This defaults to `main.lua`, matching `main.ts`.
+* `luaBundleEntry`: If `luaBundle` is set, this marks the TypeScript file that should be executed. This defaults to `main.ts`.
 
 ## License
 The typings in `types/` and `event.ts` are licensed under the MIT license. Projects are free to use these files as provisioned under the license (i.e. do whatever you want, but include the license notice somewhere in your project). Anything else is public domain.

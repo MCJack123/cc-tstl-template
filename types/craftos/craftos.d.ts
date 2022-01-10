@@ -4,7 +4,6 @@
 
 type Color = number;
 type Colour = Color;
-type MultiReturn<T> = T;
 
 declare namespace colors {
     var white: Color;
@@ -23,13 +22,11 @@ declare namespace colors {
     var green: Color;
     var red: Color;
     var black: Color;
-    /** @vararg **/
     function combine(c1: Color, ...c2: Color[]): Color;
-    /** @vararg **/
     function subtract(c1: Color, ...c2: Color[]): Color;
     function test(colors: Color, color: Color): boolean;
     function packRGB(r: number, g: number, b: number): number;
-    function unpackRGB(rgb: number): MultiReturn<[number, number, number]>;
+    function unpackRGB(rgb: number): LuaMultiReturn<[number, number, number]>;
     function toBlit(color: Color): string;
 }
 
@@ -50,26 +47,22 @@ declare namespace colours {
     var green: Colour;
     var red: Colour;
     var black: Colour;
-    /** @vararg **/
     function combine(c1: Colour, ...c2: Colour[]): Colour;
-    /** @vararg **/
     function subtract(c1: Colour, ...c2: Colour[]): Colour;
     function test(colors: Colour, color: Colour): boolean;
     function packRGB(r: number, g: number, b: number): number;
-    function unpackRGB(rgb: number): MultiReturn<[number, number, number]>;
+    function unpackRGB(rgb: number): LuaMultiReturn<[number, number, number]>;
     function toBlit(color: Colour): string;
 }
 type Coroutine = any;
 
 declare namespace coroutine {
     function create(fn: Function): Coroutine;
-    /** @vararg **/
-    function resume(coro: Coroutine, ...args: any[]): MultiReturn<[boolean, ...any[]]>;
+    function resume(coro: Coroutine, ...args: any[]): LuaMultiReturn<[boolean, ...any[]]>;
     function running(): Coroutine | null;
     function status(coro: Coroutine): string;
     function wrap(fn: Function): Function;
-    /** @vararg **/
-    function yield(...args: any[]): MultiReturn<[...any[]]>;
+    function yield(...args: any[]): LuaMultiReturn<[...any[]]>;
 }
 declare namespace disk {
     function isPresent(name: string): boolean;
@@ -116,9 +109,8 @@ declare const fs: {
     move(from: string, to: string): void;
     copy(from: string, to: string): void;
     'delete'(path: string): void;
-    /** @vararg **/
     combine(base: string, ...local: string[]): void;
-    open(path: string, mode: string): MultiReturn<[FileHandle] | [null, string]>;
+    open(path: string, mode: string): LuaMultiReturn<[FileHandle] | [null, string]>;
     find(wildcard: string): string[];
     getDir(path: string): string;
     complete(partial: string, path: string, includeFiles?: boolean, includeSlashes?: boolean): string[];
@@ -128,32 +120,28 @@ declare const fs: {
 }
 declare function sleep(time: number): void;
 declare function write(str: string): number;
-/** @vararg **/
 declare function print(...str: any[]): number;
-/** @vararg **/
 declare function printError(...str: any[]): void;
 declare function read(replaceChar?: string, history?: string[], completeFn?: (partial: string) => string[], defaultValue?: string): string;
-/** @vararg **/
-declare function assert(v: boolean, ...args: any[]): MultiReturn<[boolean, ...any[]]>;
-declare function dofile(filename: string): MultiReturn<[...any[]]>;
-declare function getfenv(func: Function): Object;
-declare function getmetatable(obj: Object): Object;
-declare function load(str: string, name?: string, mode?: string, env?: Object): MultiReturn<[Function] | [null, string]>;
+declare function assert(v: boolean, ...args: any[]): LuaMultiReturn<[boolean, ...any[]]>;
+declare function dofile(filename: string): LuaMultiReturn<[...any[]]>;
+declare function getfenv(func: Function): LuaTable;
+declare function getmetatable(obj: LuaTable): LuaTable;
+declare function load(str: string, name?: string, mode?: string, env?: LuaTable): LuaMultiReturn<[Function] | [null, string]>;
 declare function rawequal(a: any, b: any): boolean;
-declare function rawget(tab: Object, idx: any): any;
-declare function rawset(tab: Object, idx: any, val: any): void;
-/** @vararg **/
-declare function select(idx: number | "#", ...args: any[]): MultiReturn<[number] | [...any[]]>;
-declare function setfenv(func: Function, env: Object): void;
-declare function setmetatable(obj: Object, meta: Object): void;
+declare function rawget(tab: LuaTable, idx: any): any;
+declare function rawset(tab: LuaTable, idx: any, val: any): void;
+declare function select(idx: number | "#", ...args: any[]): LuaMultiReturn<[number] | [...any[]]>;
+declare function setfenv(func: Function, env: LuaTable): void;
+declare function setmetatable(obj: LuaTable, meta: LuaTable): void;
 declare var _CC_DEFAULT_SETTINGS: string;
 declare var _CC_DISABLE_LUA51_FEATURES: boolean;
-declare var _G: Object;
+declare var _G: LuaTable;
 declare var _HOST: string;
 declare var _VERSION: string;
 declare namespace gps {
     var CHANNEL_GPS: number;
-    function locate(timeout?: number, debug?: boolean): MultiReturn<[number, number, number]>;
+    function locate(timeout?: number, debug?: boolean): LuaMultiReturn<[number, number, number]>;
 }
 declare namespace help {
     function path(): string;
@@ -188,13 +176,13 @@ declare class WebSocket {
 
 declare namespace http {
     function request(url: string, body?: string, headers?: Map<string, string>, binary?: boolean): void;
-    function get(url: string, headers?: Map<string, string>, binary?: boolean): MultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
-    function get(options: RequestOptions): MultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
-    function post(url: string, body?: string, headers?: Map<string, string>, binary?: boolean): MultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
-    function post(options: RequestOptions): MultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
+    function get(url: string, headers?: Map<string, string>, binary?: boolean): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
+    function get(options: RequestOptions): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
+    function post(url: string, body?: string, headers?: Map<string, string>, binary?: boolean): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
+    function post(options: RequestOptions): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
     function checkURLAsync(url: string): void;
     function checkURL(url: string): boolean;
-    function websocket(url: string, headers?: Map<string, string>): MultiReturn<[WebSocket] | [boolean, string]>;
+    function websocket(url: string, headers?: Map<string, string>): LuaMultiReturn<[WebSocket] | [boolean, string]>;
     function websocketAsync(url: string, headers?: Map<string, string>): void;
 }
 type Key = number;
@@ -336,9 +324,7 @@ declare namespace math {
     function ldexp(m: number, e: number): number;
     function log(x: number): number;
     function log10(x: number): number;
-    /** @vararg **/
     function max(x: number, ...args: number[]): number;
-    /** @vararg **/
     function min(x: number, ...args: number[]): number;
     function modf(x: number): number;
     var pi: number;
@@ -358,7 +344,7 @@ declare namespace multishell {
     function getTitle(n: number): string | null;
     function setTitle(n: number, title: string): void;
     function getCurrent(): number;
-    function launch(env: Object, path: string, ...args: string[]): number;
+    function launch(env: LuaTable, path: string, ...args: string[]): number;
     function getCount(): number;
 }
 declare type LuaDate = {
@@ -380,9 +366,7 @@ declare namespace os {
     function getComputerLabel(): string | null;
     function computerLabel(): string | null;
     function setComputerLabel(label?: string | null): void;
-    /** @vararg **/
-    function run(env: Object, path: string, ...args: string[]): boolean;
-    /** @vararg **/
+    function run(env: LuaTable, path: string, ...args: string[]): boolean;
     function queueEvent(type: string, ...param: any[]): void;
     function clock(): number;
     function startTimer(timeout: number): number;
@@ -407,9 +391,7 @@ declare namespace paintutils {
     function drawImage(image: number[][], x: number, y: number): void;
 }
 declare namespace parallel {
-    /** @vararg **/
     function waitForany(...args: (() => void)[]): void;
-    /** @vararg **/
     function waitForAll(...args: (() => void)[]): void;
 }
 interface IPeripheral {}
@@ -417,7 +399,7 @@ interface IPeripheral {}
 declare class CommandPeripheral implements IPeripheral {
     getCommand(): string;
     setCommand(command: string): void;
-    runCommand(): MultiReturn<[boolean, string | null]>;
+    runCommand(): LuaMultiReturn<[boolean, string | null]>;
 }
 
 declare class ComputerPeripheral implements IPeripheral {
@@ -457,8 +439,7 @@ declare class WiredModemPeripheral extends ModemPeripheral {
     isPresentRemote(name: string): boolean;
     getTypeRemote(name: string): string;
     getMethodsRemote(name: string): string[];
-    /** @vararg **/
-    callRemote(name: string, method: string, ...args: string[]): MultiReturn<[...any[]]>;
+    callRemote(name: string, method: string, ...args: string[]): LuaMultiReturn<[...any[]]>;
     getNameLocal(): string;
 }
 
@@ -467,13 +448,13 @@ declare class MonitorPeripheral implements IPeripheral, ITerminal {
     blit(text: string, textColors: string, backgroundColors: string): void;
     clear(): void;
     clearLine(): void;
-    getCursorPos(): MultiReturn<[number, number]>;
+    getCursorPos(): LuaMultiReturn<[number, number]>;
     setCursorPos(x: number, y: number): void;
     getCursorBlink(): boolean;
     setCursorBlink(blink: boolean): void;
     isColor(): boolean;
     isColour(): boolean;
-    getSize(mode?: boolean | number): MultiReturn<[number, number]>;
+    getSize(mode?: boolean | number): LuaMultiReturn<[number, number]>;
     scroll(n: number): void;
     getTextColor(): Color;
     getTextColour(): Colour;
@@ -483,8 +464,8 @@ declare class MonitorPeripheral implements IPeripheral, ITerminal {
     getBackgroundColour(): Colour;
     setBackgroundColor(color: Color): void;
     setBackgroundColour(color: Colour): void;
-    getPaletteColor(color: Color): MultiReturn<[Color, Color, Color]>;
-    getPaletteColour(color: Colour): MultiReturn<[Colour, Colour, Colour]>;
+    getPaletteColor(color: Color): LuaMultiReturn<[Color, Color, Color]>;
+    getPaletteColour(color: Colour): LuaMultiReturn<[Colour, Colour, Colour]>;
     setPaletteColor(color: Color, rgb: number): void;
     setPaletteColor(color: Color, r: number, g: number, b: number): void;
     setPaletteColour(color: Colour, rgb: number): void;
@@ -501,11 +482,10 @@ declare class MonitorPeripheral implements IPeripheral, ITerminal {
 }
 
 declare class PrinterPeripheral implements IPeripheral {
-    /** @varargs **/
     write(...args: (string | number)[]): void;
-    getCursorPos(): MultiReturn<[number, number]>;
+    getCursorPos(): LuaMultiReturn<[number, number]>;
     setCursorPos(x: number, y: number): void;
-    getPageSize(): MultiReturn<[number, number]>;
+    getPageSize(): LuaMultiReturn<[number, number]>;
     newPage(): void;
     endPage(): void;
     setPageTitle(title?: string | null): void;
@@ -558,18 +538,17 @@ declare class InventoryPeripheral implements IPeripheral {
 declare namespace peripheral {
     function getNames(): string[];
     function isPresent(name: string): boolean;
-    function getType(peripheral: IPeripheral|string): MultiReturn<[...string[]]>;
+    function getType(peripheral: IPeripheral|string): LuaMultiReturn<[...string[]]>;
     function hasType(peripheral: IPeripheral|string, type: string): boolean|null;
     function getMethods(name: string): string[]|null;
     function getName(peripheral: IPeripheral): string;
-    /** @vararg **/
-    function call(side: string, method: string, ...args: any[]): MultiReturn<[...any[]]>;
+    function call(side: string, method: string, ...args: any[]): LuaMultiReturn<[...any[]]>;
     function wrap(name: string): IPeripheral;
-    function find(type: string, filter?: (peripheral: IPeripheral) => boolean): MultiReturn<[...IPeripheral[]]>;
+    function find(type: string, filter?: (peripheral: IPeripheral) => boolean): LuaMultiReturn<[...IPeripheral[]]>;
 }
 declare namespace pocket {
-    function equipBack(): MultiReturn<[boolean, string | null]>;
-    function unequipBack(): MultiReturn<[boolean, string | null]>;
+    function equipBack(): LuaMultiReturn<[boolean, string | null]>;
+    function unequipBack(): LuaMultiReturn<[boolean, string | null]>;
 }
 declare namespace rednet {
     var CHANNEL_BROADCAST: number;
@@ -579,7 +558,7 @@ declare namespace rednet {
     function isOpen(modem?: string): void;
     function send(recipient: number, message: any, protocol?: string): void;
     function broadcast(message: any, protocol?: string): void;
-    function receive(filter?: string | null, timeout?: number): MultiReturn<[number, any, string | null] | [null]>;
+    function receive(filter?: string | null, timeout?: number): LuaMultiReturn<[number, any, string | null] | [null]>;
     function host(protocol: string, hostname: string): void;
     function unhost(protocol: string): void;
     function lookup(protocol: string, hostname?: string): void;
@@ -632,44 +611,36 @@ declare namespace shell {
     function clearAlias(name: string): void;
     function programs(showHidden?: boolean): string[];
     function getRunningProgram(): string;
-    /** @vararg **/
     function run(command: string, ...args: string[]): boolean;
-    /** @vararg **/
     function execute(command: string, ...args: string[]): boolean;
-    /** @vararg **/
     function openTab(command: string, ...args: string[]): number;
     function switchTab(id: number): void;
     function complete(prefix: string): string[];
     function completeProgram(prefix: string): string[];
-    function setCompletionFunction(path: string, completion: (shell: Object, index: number, partial: string, previous: string[]) => string[]): void;
-    function getCompletionInfo(): {fnComplete: (shell: Object, index: number, partial: string, previous: string[]) => string[]}[];
+    function setCompletionFunction(path: string, completion: (shell: LuaTable|Object, index: number, partial: string, previous: string[]) => string[]): void;
+    function getCompletionInfo(): {fnComplete: (shell: LuaTable|Object, index: number, partial: string, previous: string[]) => string[]}[];
 }
-/** @luaIterator **/
-type IStringIterator = Iterable<MultiReturn<[...string[]]>>;
-/** @vararg **/
+type IStringIterator = LuaIterable<LuaMultiReturn<[...string[]]>>;
 type IGSubReplacement = (...args: string[]) => string;
 
 declare namespace string {
-    function byte(str: string, start?: number, end?: number): MultiReturn<[...number[]]>;
-    /** @varargs **/
+    function byte(str: string, start?: number, end?: number): LuaMultiReturn<[...number[]]>;
     function char(...args: number[]): string;
     function dump(func: Function): string;
-    function find(str: string, pattern: string, init?: number, plain?: boolean): MultiReturn<[number, number, ...string[]]>;
-    /** @varargs **/
+    function find(str: string, pattern: string, init?: number, plain?: boolean): LuaMultiReturn<[number, number, ...string[]]>;
     function format(format: string, ...args: any[]): string;
     function gmatch(str: string, pattern: string): IStringIterator;
-    function gsub(str: string, pattern: string, repl: string | Object | IGSubReplacement, count?: number): string;
+    function gsub(str: string, pattern: string, repl: string | Object | LuaTable | IGSubReplacement, count?: number): string;
     function len(str: string): number;
     function lower(str: string): string;
-    function match(str: string, pattern: string, init?: number): MultiReturn<[...string[]]>;
-    /** @varargs **/
+    function match(str: string, pattern: string, init?: number): LuaMultiReturn<[...string[]]>;
     function pack(format: string, ...args: any[]): string;
     function packsize(format: string): number;
     function rep(str: string, count: number): string;
     function reverse(str: string): string;
     function sub(str: string, start: number, end?: number): string;
     function upper(str: string): string;
-    function unpack(format: string, str: string, pos?: number): MultiReturn<[...any[], number]>;
+    function unpack(format: string, str: string, pos?: number): LuaMultiReturn<[...any[], number]>;
 }
 declare namespace table {
     function concat(tab: any[], sep?: string, start?: number, end?: number): string;
@@ -677,22 +648,21 @@ declare namespace table {
     function insert(tab: any[], idx: number, val: any): void;
     function remove(tab: any[], idx?: number): any;
     function sort(tab: any[], comp?: (a: any, b: any) => boolean): void;
-    /** @vararg **/
     function pack(...args: any[]): any[];
-    function unpack(tab: any[], start?: number, end?: number): MultiReturn<[...any[]]>;
+    function unpack(tab: any[], start?: number, end?: number): LuaMultiReturn<[...any[]]>;
 }
 interface ITerminal {
     write(text: string): void;
     blit(text: string, textColors: string, backgroundColors: string): void;
     clear(): void;
     clearLine(): void;
-    getCursorPos(): MultiReturn<[number, number]>;
+    getCursorPos(): LuaMultiReturn<[number, number]>;
     setCursorPos(x: number, y: number): void;
     getCursorBlink(): boolean;
     setCursorBlink(blink: boolean): void;
     isColor(): boolean;
     isColour(): boolean;
-    getSize(mode?: boolean | number): MultiReturn<[number, number]>;
+    getSize(mode?: boolean | number): LuaMultiReturn<[number, number]>;
     scroll(n: number): void;
     getTextColor(): Color;
     getTextColour(): Colour;
@@ -702,8 +672,8 @@ interface ITerminal {
     getBackgroundColour(): Colour;
     setBackgroundColor(color: Color): void;
     setBackgroundColour(color: Colour): void;
-    getPaletteColor(color: Color): MultiReturn<[number, number, number]>;
-    getPaletteColour(color: Colour): MultiReturn<[number, number, number]>;
+    getPaletteColor(color: Color): LuaMultiReturn<[number, number, number]>;
+    getPaletteColour(color: Colour): LuaMultiReturn<[number, number, number]>;
     setPaletteColor(color: Color, rgb: number): void;
     setPaletteColor(color: Color, r: number, g: number, b: number): void;
     setPaletteColour(color: Colour, rgb: number): void;
@@ -728,13 +698,13 @@ declare namespace term {
     function blit(text: string, textColors: string, backgroundColors: string): void;
     function clear(): void;
     function clearLine(): void;
-    function getCursorPos(): MultiReturn<[number, number]>;
+    function getCursorPos(): LuaMultiReturn<[number, number]>;
     function setCursorPos(x: number, y: number): void;
     function getCursorBlink(): boolean;
     function setCursorBlink(blink: boolean): void;
     function isColor(): boolean;
     function isColour(): boolean;
-    function getSize(mode?: boolean | number): MultiReturn<[number, number]>;
+    function getSize(mode?: boolean | number): LuaMultiReturn<[number, number]>;
     function scroll(n: number): void;
     function getTextColor(): Color;
     function getTextColour(): Colour;
@@ -744,8 +714,8 @@ declare namespace term {
     function getBackgroundColour(): Colour;
     function setBackgroundColor(color: Color): void;
     function setBackgroundColour(color: Colour): void;
-    function getPaletteColor(color: Color): MultiReturn<[number, number, number]>;
-    function getPaletteColour(color: Colour): MultiReturn<[number, number, number]>;
+    function getPaletteColor(color: Color): LuaMultiReturn<[number, number, number]>;
+    function getPaletteColour(color: Colour): LuaMultiReturn<[number, number, number]>;
     function setPaletteColor(color: Color, rgb: number): void;
     function setPaletteColor(color: Color, r: number, g: number, b: number): void;
     function setPaletteColour(color: Colour, rgb: number): void;
@@ -775,8 +745,8 @@ declare namespace textutils {
     function slowPrint(text: string, rate?: number): void;
     function formatTime(time: number, hour24?: boolean): string;
     function pagedPrint(text: string, freeLines?: number): number;
-    function tabulate(...args: (Object | Color)[]): void;
-    function pagedTabulate(...args: (Object | Color)[]): void;
+    function tabulate(...args: (LuaTable | Object | Color)[]): void;
+    function pagedTabulate(...args: (LuaTable | Object | Color)[]): void;
     function serialize(tab: any, options?: SerializeOptions): string;
     function serialise(tab: any, options?: SerializeOptions): string;
     function serializeJSON(tab: any, nbtStyle?: boolean): string;
@@ -810,13 +780,13 @@ declare class Window implements ITerminal {
     public blit(text: string, textColors: string, backgroundColors: string): void;
     public clear(): void;
     public clearLine(): void;
-    public getCursorPos(): MultiReturn<[number, number]>;
+    public getCursorPos(): LuaMultiReturn<[number, number]>;
     public setCursorPos(x: number, y: number): void;
     public getCursorBlink(): boolean;
     public setCursorBlink(blink: boolean): void;
     public isColor(): boolean;
     public isColour(): boolean;
-    public getSize(mode?: boolean | number): MultiReturn<[number, number]>;
+    public getSize(mode?: boolean | number): LuaMultiReturn<[number, number]>;
     public scroll(n: number): void;
     public getTextColor(): Color;
     public getTextColour(): Colour;
@@ -826,8 +796,8 @@ declare class Window implements ITerminal {
     public getBackgroundColour(): Colour;
     public setBackgroundColor(color: Color): void;
     public setBackgroundColour(color: Colour): void;
-    public getPaletteColor(color: Color): MultiReturn<[number, number, number]>;
-    public getPaletteColour(color: Colour): MultiReturn<[number, number, number]>;
+    public getPaletteColor(color: Color): LuaMultiReturn<[number, number, number]>;
+    public getPaletteColour(color: Colour): LuaMultiReturn<[number, number, number]>;
     public setPaletteColor(color: Color, rgb: number): void;
     public setPaletteColor(color: Color, r: number, g: number, b: number): void;
     public setPaletteColour(color: Colour, rgb: number): void;
@@ -844,6 +814,6 @@ declare class Window implements ITerminal {
     public setVisible(visible: boolean): void;
     public redraw(): void;
     public restoreCursor(): void;
-    public getPosition(): MultiReturn<[number, number]>;
+    public getPosition(): LuaMultiReturn<[number, number]>;
     public reposition(x: number, y: number, width?: number, height?: number): void;
 }
