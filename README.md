@@ -12,8 +12,7 @@ Template project for ComputerCraft programs written in TypeScript. Uses [TypeScr
 ## Libraries
 
 ### Built-in CraftOS APIs
-All base CraftOS APIs are available in the global namespace - no need to import them. `turtle` and `commands` are not yet available, but planned for a future version.
-
+All base CraftOS APIs are available in the global namespace.
 Peripherals are also implemented as classes that inherit from the `IPeripheral` interface, so you can call `wrap` and cast it to the desired class to get typings for the peripheral.
 
 ### `cc.*` Modules

@@ -410,6 +410,75 @@ declare class ComputerPeripheral implements IPeripheral {
     isOn(): boolean;
     getLabel(): string;
 }
+declare namespace turtle {
+  function craft(quantity: number): boolean;
+  function forward(): boolean;
+  function back(): boolean;
+  function up(): boolean;
+  function down(): boolean;
+  function turnLeft(): boolean;
+  function turnRight(): boolean;
+  function select(slotNum: number): boolean;
+  function getSelectedSlot(): number;
+
+  function getItemCount(slotNum?: number): number;
+
+  function getItemSpace(slotNum?: number): number;
+
+  function getItemDetail(slotNum?: number): LuaTable | Object;
+
+  function equipLeft(): boolean;
+  function equipRight(): boolean;
+
+  function attack(toolSide?: string): boolean;
+  function attackUp(toolSide?: string): boolean;
+  function attackDown(toolSide?: string): boolean;
+
+  function dig(toolSide?: string): boolean;
+  function digUp(toolSide?: string): boolean;
+  function digDown(toolSide?: string): boolean;
+
+  function place(toolSide?: string): boolean;
+  function placeUp(toolSide?: string): boolean;
+  function placeDown(toolSide?: string): boolean;
+
+  function detect(toolSide?: string): boolean;
+  function detectUp(toolSide?: string): boolean;
+  function detectDown(toolSide?: string): boolean;
+
+  function inspect(toolSide?: string): LuaMultiReturn<[boolean, LuaTable | Object | string]>;
+  function inspectUp(toolSide?: string): LuaMultiReturn<[boolean, LuaTable | Object | string]>;
+  function inspectDown(toolSide?: string): LuaMultiReturn<[boolean, LuaTable | Object | string]>;
+
+  function compare(toolSide?: string): boolean;
+  function compareUp(toolSide?: string): boolean;
+  function compareDown(toolSide?: string): boolean;
+
+  function drop(toolSide?: string): boolean;
+  function dropUp(toolSide?: string): boolean;
+  function dropDown(toolSide?: string): boolean;
+
+  function suck(toolSide?: string): boolean;
+  function suckUp(toolSide?: string): boolean;
+  function suckDown(toolSide?: string): boolean;
+
+  function refuel(): boolean;
+  function refuel(quantity: number): boolean;
+  function getFuelLevel(): number;
+  function getFuelLimit(): number;
+
+  function transferTo(slotNum: number, quantity?: number): boolean;
+}
+
+declare namespace commands {
+  function exec(command: string): LuaMultiReturn<[boolean, LuaTable | Object]>;
+  function execAsync(command: string): number;
+  function list(command: string): LuaTable | Object;
+  function getBlockPosition(): LuaMultiReturn<[number, number, number]>;
+  function getBlockInfo(x: number, y: number, z: number): LuaTable | Object;
+  function getBlockInfos(x1: number, y1: number, z1: number, x2: number, y2: number, z2: number): LuaTable | Object;
+}
+
 
 declare class DrivePeripheral implements IPeripheral {
     isDiskPresent(): boolean;
