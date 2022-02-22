@@ -54,6 +54,14 @@ declare namespace colours {
     function unpackRGB(rgb: number): LuaMultiReturn<[number, number, number]>;
     function toBlit(color: Colour): string;
 }
+declare namespace commands {
+  function exec(command: string): LuaMultiReturn<[boolean, LuaTable | Object]>;
+  function execAsync(command: string): number;
+  function list(command: string): LuaTable | Object;
+  function getBlockPosition(): LuaMultiReturn<[number, number, number]>;
+  function getBlockInfo(x: number, y: number, z: number): LuaTable | Object;
+  function getBlockInfos(x1: number, y1: number, z1: number, x2: number, y2: number, z2: number): LuaTable | Object;
+}
 type Coroutine = any;
 
 declare namespace coroutine {
@@ -77,6 +85,7 @@ declare namespace disk {
     function eject(name: string): void;
     function getID(name: string): number;
 }
+/* @noSelf */
 declare class FileHandle {
     public close(): void;
     public seek(whence?: string, offset?: number): number;
@@ -159,6 +168,7 @@ type RequestOptions = {
     redirect: boolean | null;
 }
 
+/* @noSelf */
 declare class HTTPResponse {
     public getResponseCode(): number;
     public getResponseHeaders(): Map<string, string>;
@@ -168,6 +178,7 @@ declare class HTTPResponse {
     public close(): void;
 }
 
+/* @noSelf */
 declare class WebSocket {
     public receive(timeout?: number): string | null;
     public send(message: string, binary?: boolean): void;
@@ -394,14 +405,17 @@ declare namespace parallel {
     function waitForany(...args: (() => void)[]): void;
     function waitForAll(...args: (() => void)[]): void;
 }
+/* @noSelf */
 interface IPeripheral {}
 
+/* @noSelf */
 declare class CommandPeripheral implements IPeripheral {
     getCommand(): string;
     setCommand(command: string): void;
     runCommand(): LuaMultiReturn<[boolean, string | null]>;
 }
 
+/* @noSelf */
 declare class ComputerPeripheral implements IPeripheral {
     turnOn(): void;
     shutdown(): void;
@@ -410,76 +424,8 @@ declare class ComputerPeripheral implements IPeripheral {
     isOn(): boolean;
     getLabel(): string;
 }
-declare namespace turtle {
-  function craft(quantity: number): boolean;
-  function forward(): boolean;
-  function back(): boolean;
-  function up(): boolean;
-  function down(): boolean;
-  function turnLeft(): boolean;
-  function turnRight(): boolean;
-  function select(slotNum: number): boolean;
-  function getSelectedSlot(): number;
 
-  function getItemCount(slotNum?: number): number;
-
-  function getItemSpace(slotNum?: number): number;
-
-  function getItemDetail(slotNum?: number): LuaTable | Object;
-
-  function equipLeft(): boolean;
-  function equipRight(): boolean;
-
-  function attack(toolSide?: string): boolean;
-  function attackUp(toolSide?: string): boolean;
-  function attackDown(toolSide?: string): boolean;
-
-  function dig(toolSide?: string): boolean;
-  function digUp(toolSide?: string): boolean;
-  function digDown(toolSide?: string): boolean;
-
-  function place(toolSide?: string): boolean;
-  function placeUp(toolSide?: string): boolean;
-  function placeDown(toolSide?: string): boolean;
-
-  function detect(toolSide?: string): boolean;
-  function detectUp(toolSide?: string): boolean;
-  function detectDown(toolSide?: string): boolean;
-
-  function inspect(toolSide?: string): LuaMultiReturn<[boolean, LuaTable | Object | string]>;
-  function inspectUp(toolSide?: string): LuaMultiReturn<[boolean, LuaTable | Object | string]>;
-  function inspectDown(toolSide?: string): LuaMultiReturn<[boolean, LuaTable | Object | string]>;
-
-  function compare(toolSide?: string): boolean;
-  function compareUp(toolSide?: string): boolean;
-  function compareDown(toolSide?: string): boolean;
-
-  function drop(toolSide?: string): boolean;
-  function dropUp(toolSide?: string): boolean;
-  function dropDown(toolSide?: string): boolean;
-
-  function suck(toolSide?: string): boolean;
-  function suckUp(toolSide?: string): boolean;
-  function suckDown(toolSide?: string): boolean;
-
-  function refuel(): boolean;
-  function refuel(quantity: number): boolean;
-  function getFuelLevel(): number;
-  function getFuelLimit(): number;
-
-  function transferTo(slotNum: number, quantity?: number): boolean;
-}
-
-declare namespace commands {
-  function exec(command: string): LuaMultiReturn<[boolean, LuaTable | Object]>;
-  function execAsync(command: string): number;
-  function list(command: string): LuaTable | Object;
-  function getBlockPosition(): LuaMultiReturn<[number, number, number]>;
-  function getBlockInfo(x: number, y: number, z: number): LuaTable | Object;
-  function getBlockInfos(x1: number, y1: number, z1: number, x2: number, y2: number, z2: number): LuaTable | Object;
-}
-
-
+/* @noSelf */
 declare class DrivePeripheral implements IPeripheral {
     isDiskPresent(): boolean;
     getDiskLabel(): string;
@@ -494,6 +440,7 @@ declare class DrivePeripheral implements IPeripheral {
     getDiskID(): number;
 }
 
+/* @noSelf */
 declare class ModemPeripheral implements IPeripheral {
     open(channel: number): void;
     isOpen(channel: number): boolean;
@@ -503,6 +450,7 @@ declare class ModemPeripheral implements IPeripheral {
     isWireless(): boolean;
 }
 
+/* @noSelf */
 declare class WiredModemPeripheral extends ModemPeripheral {
     getNamesRemote(): string[];
     isPresentRemote(name: string): boolean;
@@ -512,6 +460,7 @@ declare class WiredModemPeripheral extends ModemPeripheral {
     getNameLocal(): string;
 }
 
+/* @noSelf */
 declare class MonitorPeripheral implements IPeripheral, ITerminal {
     write(text: string): void;
     blit(text: string, textColors: string, backgroundColors: string): void;
@@ -550,6 +499,7 @@ declare class MonitorPeripheral implements IPeripheral, ITerminal {
     setTextScale(scale: number): void;
 }
 
+/* @noSelf */
 declare class PrinterPeripheral implements IPeripheral {
     write(...args: (string | number)[]): void;
     getCursorPos(): LuaMultiReturn<[number, number]>;
@@ -562,6 +512,7 @@ declare class PrinterPeripheral implements IPeripheral {
     getPaperLevel(): number;
 }
 
+/* @noSelf */
 declare class SpeakerPeripheral implements IPeripheral {
     playSound(name: string, volume?: number, pitch?: number): void;
     playNote(name: string, volume?: number, pitch?: number): void;
@@ -569,11 +520,13 @@ declare class SpeakerPeripheral implements IPeripheral {
     stop(): void;
 }
 
+/* @noSelf */
 declare class EnergyStoragePeripheral implements IPeripheral {
     getEnergy(): number;
     getEnergyCapacity(): number;
 }
 
+/* @noSelf */
 declare class FluidStoragePeripheral implements IPeripheral {
     tanks(): {[index: number]: {name: string, amount: number}};
     pushFluid(to: string, limit?: number, name?: string): number;
@@ -595,6 +548,7 @@ declare type ItemDetail = {
     unbreakable?: boolean;
 }
 
+/* @noSelf */
 declare class InventoryPeripheral implements IPeripheral {
     size(): number;
     list(): {[index: number]: {name: string, count: number, nbt?: string}};
@@ -720,6 +674,7 @@ declare namespace table {
     function pack(...args: any[]): any[];
     function unpack(tab: any[], start?: number, end?: number): LuaMultiReturn<[...any[]]>;
 }
+/* @noSelf */
 interface ITerminal {
     write(text: string): void;
     blit(text: string, textColors: string, backgroundColors: string): void;
@@ -827,6 +782,65 @@ declare namespace textutils {
     function urlEncode(url: string): string;
     function complete(searchText: string, searchTable?: any): string[];
 }
+declare namespace turtle {
+  function craft(quantity: number): boolean;
+  function forward(): boolean;
+  function back(): boolean;
+  function up(): boolean;
+  function down(): boolean;
+  function turnLeft(): boolean;
+  function turnRight(): boolean;
+  function select(slotNum: number): boolean;
+  function getSelectedSlot(): number;
+
+  function getItemCount(slotNum?: number): number;
+
+  function getItemSpace(slotNum?: number): number;
+
+  function getItemDetail(slotNum?: number): LuaTable | Object;
+
+  function equipLeft(): boolean;
+  function equipRight(): boolean;
+
+  function attack(toolSide?: string): boolean;
+  function attackUp(toolSide?: string): boolean;
+  function attackDown(toolSide?: string): boolean;
+
+  function dig(toolSide?: string): boolean;
+  function digUp(toolSide?: string): boolean;
+  function digDown(toolSide?: string): boolean;
+
+  function place(toolSide?: string): boolean;
+  function placeUp(toolSide?: string): boolean;
+  function placeDown(toolSide?: string): boolean;
+
+  function detect(toolSide?: string): boolean;
+  function detectUp(toolSide?: string): boolean;
+  function detectDown(toolSide?: string): boolean;
+
+  function inspect(toolSide?: string): LuaMultiReturn<[boolean, LuaTable | Object | string]>;
+  function inspectUp(toolSide?: string): LuaMultiReturn<[boolean, LuaTable | Object | string]>;
+  function inspectDown(toolSide?: string): LuaMultiReturn<[boolean, LuaTable | Object | string]>;
+
+  function compare(toolSide?: string): boolean;
+  function compareUp(toolSide?: string): boolean;
+  function compareDown(toolSide?: string): boolean;
+
+  function drop(toolSide?: string): boolean;
+  function dropUp(toolSide?: string): boolean;
+  function dropDown(toolSide?: string): boolean;
+
+  function suck(toolSide?: string): boolean;
+  function suckUp(toolSide?: string): boolean;
+  function suckDown(toolSide?: string): boolean;
+
+  function refuel(): boolean;
+  function refuel(quantity: number): boolean;
+  function getFuelLevel(): number;
+  function getFuelLimit(): number;
+
+  function transferTo(slotNum: number, quantity?: number): boolean;
+}
 /** @customConstructor vector.new */
 declare class Vector {
     constructor(x: number, y: number, z: number);
@@ -842,6 +856,7 @@ declare class Vector {
     public round(this: Vector, tolerance?: number): Vector;
     public tostring(this: Vector): string;
 }
+/* @noSelf */
 /** @customConstructor window.create */
 declare class Window implements ITerminal {
     constructor(parent: ITerminal, x: number, y: number, width: number, height: number, visible?: boolean);
