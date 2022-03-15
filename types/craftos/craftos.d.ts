@@ -856,8 +856,8 @@ declare class Vector {
     public round(this: Vector, tolerance?: number): Vector;
     public tostring(this: Vector): string;
 }
-/* @noSelf */
 /** @customConstructor window.create */
+/** @noSelf */
 declare class Window implements ITerminal {
     constructor(parent: ITerminal, x: number, y: number, width: number, height: number, visible?: boolean);
     public write(text: string): void;
