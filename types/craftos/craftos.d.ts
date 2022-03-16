@@ -1,6 +1,6 @@
 /** @noSelfInFile **/
 
-// Latest CC version: 1.100.1
+// Latest CC version: 1.100.3
 
 type Color = number;
 type Colour = Color;
@@ -85,7 +85,7 @@ declare namespace disk {
     function eject(name: string): void;
     function getID(name: string): number;
 }
-/* @noSelf */
+/** @noSelf */
 declare class FileHandle {
     public close(): void;
     public seek(whence?: string, offset?: number): number;
@@ -118,7 +118,7 @@ declare const fs: {
     move(from: string, to: string): void;
     copy(from: string, to: string): void;
     'delete'(path: string): void;
-    combine(base: string, ...local: string[]): void;
+    combine(base: string, ...local: string[]): string;
     open(path: string, mode: string): LuaMultiReturn<[FileHandle] | [null, string]>;
     find(wildcard: string): string[];
     getDir(path: string): string;
@@ -168,7 +168,7 @@ type RequestOptions = {
     redirect: boolean | null;
 }
 
-/* @noSelf */
+/** @noSelf */
 declare class HTTPResponse {
     public getResponseCode(): number;
     public getResponseHeaders(): Map<string, string>;
@@ -178,7 +178,7 @@ declare class HTTPResponse {
     public close(): void;
 }
 
-/* @noSelf */
+/** @noSelf */
 declare class WebSocket {
     public receive(timeout?: number): string | null;
     public send(message: string, binary?: boolean): void;
@@ -405,17 +405,17 @@ declare namespace parallel {
     function waitForany(...args: (() => void)[]): void;
     function waitForAll(...args: (() => void)[]): void;
 }
-/* @noSelf */
+/** @noSelf */
 interface IPeripheral {}
 
-/* @noSelf */
+/** @noSelf */
 declare class CommandPeripheral implements IPeripheral {
     getCommand(): string;
     setCommand(command: string): void;
     runCommand(): LuaMultiReturn<[boolean, string | null]>;
 }
 
-/* @noSelf */
+/** @noSelf */
 declare class ComputerPeripheral implements IPeripheral {
     turnOn(): void;
     shutdown(): void;
@@ -425,7 +425,7 @@ declare class ComputerPeripheral implements IPeripheral {
     getLabel(): string;
 }
 
-/* @noSelf */
+/** @noSelf */
 declare class DrivePeripheral implements IPeripheral {
     isDiskPresent(): boolean;
     getDiskLabel(): string;
@@ -440,7 +440,7 @@ declare class DrivePeripheral implements IPeripheral {
     getDiskID(): number;
 }
 
-/* @noSelf */
+/** @noSelf */
 declare class ModemPeripheral implements IPeripheral {
     open(channel: number): void;
     isOpen(channel: number): boolean;
@@ -450,7 +450,7 @@ declare class ModemPeripheral implements IPeripheral {
     isWireless(): boolean;
 }
 
-/* @noSelf */
+/** @noSelf */
 declare class WiredModemPeripheral extends ModemPeripheral {
     getNamesRemote(): string[];
     isPresentRemote(name: string): boolean;
@@ -460,7 +460,7 @@ declare class WiredModemPeripheral extends ModemPeripheral {
     getNameLocal(): string;
 }
 
-/* @noSelf */
+/** @noSelf */
 declare class MonitorPeripheral implements IPeripheral, ITerminal {
     write(text: string): void;
     blit(text: string, textColors: string, backgroundColors: string): void;
@@ -499,7 +499,7 @@ declare class MonitorPeripheral implements IPeripheral, ITerminal {
     setTextScale(scale: number): void;
 }
 
-/* @noSelf */
+/** @noSelf */
 declare class PrinterPeripheral implements IPeripheral {
     write(...args: (string | number)[]): void;
     getCursorPos(): LuaMultiReturn<[number, number]>;
@@ -512,7 +512,7 @@ declare class PrinterPeripheral implements IPeripheral {
     getPaperLevel(): number;
 }
 
-/* @noSelf */
+/** @noSelf */
 declare class SpeakerPeripheral implements IPeripheral {
     playSound(name: string, volume?: number, pitch?: number): void;
     playNote(name: string, volume?: number, pitch?: number): void;
@@ -520,13 +520,13 @@ declare class SpeakerPeripheral implements IPeripheral {
     stop(): void;
 }
 
-/* @noSelf */
+/** @noSelf */
 declare class EnergyStoragePeripheral implements IPeripheral {
     getEnergy(): number;
     getEnergyCapacity(): number;
 }
 
-/* @noSelf */
+/** @noSelf */
 declare class FluidStoragePeripheral implements IPeripheral {
     tanks(): {[index: number]: {name: string, amount: number}};
     pushFluid(to: string, limit?: number, name?: string): number;
@@ -548,7 +548,7 @@ declare type ItemDetail = {
     unbreakable?: boolean;
 }
 
-/* @noSelf */
+/** @noSelf */
 declare class InventoryPeripheral implements IPeripheral {
     size(): number;
     list(): {[index: number]: {name: string, count: number, nbt?: string}};
@@ -674,7 +674,7 @@ declare namespace table {
     function pack(...args: any[]): any[];
     function unpack(tab: any[], start?: number, end?: number): LuaMultiReturn<[...any[]]>;
 }
-/* @noSelf */
+/** @noSelf */
 interface ITerminal {
     write(text: string): void;
     blit(text: string, textColors: string, backgroundColors: string): void;

@@ -28,16 +28,21 @@ A library for handling events in a nicer way (e.g. using named properties rather
 
 Example:
 ```ts
-const timer = os.startTimer(5)
+import * as event from "./event";
+
+const timer = os.startTimer(5);
 while (true) {
-    const ev = event.pullEventAs<event.TimerEvent>("timer");
+    const ev = event.pullEventAs(event.TimerEvent, "timer");
     if (ev.id == timer) break;
 }
 ```
 
+All types are included in the compiled output, even if they were never used. To avoid this, comment out the event class declarations you don't need, and remove the init functions from `eventInitializers`. Do not remove `GenericEvent`, as this is the fallback event type when other types aren't available.
+
 ## `tsconfig.json` Options
 The `tsconfig.json` file contains some options used by TypeScriptToLua to adjust how Lua code is generated. Some of these may be useful for CC development. See [the TSTL webpage](https://typescripttolua.github.io/docs/configuration) for the rest of the options.
 
+* `luaTarget`: Sets the version of Lua the compiler should target. This affects things like bitwise operators and `continue` support. CC has a feature set mixed between multiple versions; it uses 5.1 as a base language but supports many of 5.2 and 5.3's library features, including `bit32`. By default, TSTL will not compile bitwise operators in 5.1 mode even though CC supports it, but using 5.2 will enable `continue`, which is not supported in CC. I have chosen a middle ground of LuaJIT, but if you have issues you may change this to another version, depending on what you need.
 * `noImplicitSelf`: Controls whether functions have a `this`/`self`. By default, all functions are given a `self` parameter (even ones not in tables!) to allow JavaScript's `this` value to work. This can be disabled per-function with `/** @noSelf **/` or per-file with `/** @noSelfInFile **/`; but if you don't use `this` or don't want to have `self` added to functions, you can set this option to `true` to disable `this`/`self`.
 * `luaLibImport`: Controls how TypeScript polyfills are emitted in the Lua code. The following options are available:
   * `inline`: Inserts the only required boilerplate code in each file. This is the default, and is recommended for projects with few files. However, this may generate duplicate code in projects with lots of files.

@@ -276,6 +276,31 @@ export class TurtleInventoryEvent implements IEvent {
         return ev;
     }
 }
+
+class SpeakerAudioEmptyEvent implements IEvent {
+    public side: string = "";
+    public get_name() {return "speaker_audio_empty";}
+    public get_args() {return [this.side];}
+    public static init(args: any[]): IEvent | null {
+        if (!(typeof args[0] === "string") || (args[0] as string) != "speaker_audio_empty") return null;
+        let ev: SpeakerAudioEmptyEvent;
+        ev.side = args[1] as string;
+        return ev;
+    }
+}
+
+class ComputerCommandEvent implements IEvent {
+    public args: string[] = [];
+    public get_name() {return "computer_command";}
+    public get_args() {return this.args;}
+    public static init(args: any[]): IEvent | null {
+        if (!(typeof args[0] === "string") || (args[0] as string) != "computer_command") return null;
+        let ev: ComputerCommandEvent;
+        ev.args = args.slice(1);
+        return ev;
+    }
+}
+
 /*
 class Event implements IEvent {
     
@@ -318,9 +343,12 @@ let eventInitializers: ((args: any[]) => IEvent | null)[] = [
     MouseEvent.init,
     ResizeEvent.init,
     TurtleInventoryEvent.init,
+    SpeakerAudioEmptyEvent.init,
+    ComputerCommandEvent.init,
     GenericEvent.init
 ];
 
+type Constructor<T extends {} = {}> = new (...args: any[]) => T;
 export function pullEventRaw(filter: string | null = null): IEvent | null {
     let args: any[] = table.pack(coroutine.yield(filter));
     for (let init of eventInitializers) {
@@ -334,12 +362,12 @@ export function pullEvent(filter: string | null = null): IEvent | null {
     if (ev instanceof TerminateEvent) throw "Terminated";
     return ev;
 }
-export function pullEventRawAs<T extends IEvent>(type: () => T, filter: string | null = null): T | null {
+export function pullEventRawAs<T extends IEvent>(type: Constructor<T>, filter: string | null = null): T | null {
     let ev = pullEventRaw(filter);
     if ((ev instanceof type)) return ev as T;
     else return null;
 }
-export function pullEventAs<T extends IEvent>(type: () => T, filter: string | null = null): T | null {
+export function pullEventAs<T extends IEvent>(type: Constructor<T>, filter: string | null = null): T | null {
     let ev = pullEvent(filter);
     if ((ev instanceof type)) return ev as T;
     else return null;
