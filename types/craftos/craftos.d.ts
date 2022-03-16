@@ -844,6 +844,9 @@ declare namespace turtle {
 /** @customConstructor vector.new */
 declare class Vector {
     constructor(x: number, y: number, z: number);
+    public x: number;
+    public y: number;
+    public z: number;
     public add(this: Vector, o: Vector): Vector;
     public sub(this: Vector, o: Vector): Vector;
     public mul(this: Vector, o: number): Vector;
