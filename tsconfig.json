@@ -6,10 +6,10 @@
         "moduleResolution": "node",
         "strict": false,
         "typeRoots": ["./types"],
-        "types": ["typescript-to-lua/language-extensions", "craftos", "cc"]
+        "types": ["@jackmacwindows/lua-types/cc", "craftos", "cc"]
     },
     "tstl": {
-        "luaTarget": "JIT",
+        "luaTarget": "CC",
         "luaLibImport": "inline",
         "luaBundle": "main.lua",
         "luaBundleEntry": "main.ts"
