@@ -62,16 +62,7 @@ declare namespace commands {
   function getBlockInfo(x: number, y: number, z: number): LuaTable | Object;
   function getBlockInfos(x1: number, y1: number, z1: number, x2: number, y2: number, z2: number): LuaTable | Object;
 }
-type Coroutine = any;
 
-declare namespace coroutine {
-    function create(fn: Function): Coroutine;
-    function resume(coro: Coroutine, ...args: any[]): LuaMultiReturn<[boolean, ...any[]]>;
-    function running(): Coroutine | null;
-    function status(coro: Coroutine): string;
-    function wrap(fn: Function): Function;
-    function yield(...args: any[]): LuaMultiReturn<[...any[]]>;
-}
 declare namespace disk {
     function isPresent(name: string): boolean;
     function getLabel(name: string): string | null;
@@ -303,38 +294,6 @@ declare const keys: {
     z: Key;
     zero: Key;
     getName(k: Key): string;
-}
-declare namespace math {
-    function abs(x: number): number;
-    function acos(x: number): number;
-    function asin(x: number): number;
-    function atan(x: number): number;
-    function atan2(y: number, x: number): number;
-    function ceil(x: number): number;
-    function cos(x: number): number;
-    function cosh(x: number): number;
-    function deg(x: number): number;
-    function exp(x: number): number;
-    function floor(x: number): number;
-    function fmod(x: number, y: number): number;
-    function frexp(x: number): number;
-    var huge: number;
-    function ldexp(m: number, e: number): number;
-    function log(x: number): number;
-    function log10(x: number): number;
-    function max(x: number, ...args: number[]): number;
-    function min(x: number, ...args: number[]): number;
-    function modf(x: number): number;
-    var pi: number;
-    function pow(x: number, y: number): number;
-    function rad(x: number): number;
-    function random(m?: number, n?: number): number;
-    function randomseed(x: number): number;
-    function sin(x: number): number;
-    function sinh(x: number): number;
-    function sqrt(x: number): number;
-    function tan(x: number): number;
-    function tanh(x: number): number;
 }
 declare namespace multishell {
     function getFocus(): number;
@@ -629,37 +588,6 @@ declare namespace shell {
     function completeProgram(prefix: string): string[];
     function setCompletionFunction(path: string, completion: (shell: LuaTable|Object, index: number, partial: string, previous: string[]) => string[]): void;
     function getCompletionInfo(): {fnComplete: (shell: LuaTable|Object, index: number, partial: string, previous: string[]) => string[]}[];
-}
-type IStringIterator = LuaIterable<LuaMultiReturn<[...string[]]>>;
-type IGSubReplacement = (...args: string[]) => string;
-
-declare namespace string {
-    function byte(str: string, start?: number, end?: number): LuaMultiReturn<[...number[]]>;
-    function char(...args: number[]): string;
-    function dump(func: Function): string;
-    function find(str: string, pattern: string, init?: number, plain?: boolean): LuaMultiReturn<[number, number, ...string[]]>;
-    function format(format: string, ...args: any[]): string;
-    function gmatch(str: string, pattern: string): IStringIterator;
-    function gsub(str: string, pattern: string, repl: string | Object | LuaTable | IGSubReplacement, count?: number): string;
-    function len(str: string): number;
-    function lower(str: string): string;
-    function match(str: string, pattern: string, init?: number): LuaMultiReturn<[...string[]]>;
-    function pack(format: string, ...args: any[]): string;
-    function packsize(format: string): number;
-    function rep(str: string, count: number): string;
-    function reverse(str: string): string;
-    function sub(str: string, start: number, end?: number): string;
-    function upper(str: string): string;
-    function unpack(format: string, str: string, pos?: number): LuaMultiReturn<[...any[], number]>;
-}
-declare namespace table {
-    function concat(tab: any[], sep?: string, start?: number, end?: number): string;
-    function insert(tab: any[], val: any): void;
-    function insert(tab: any[], idx: number, val: any): void;
-    function remove(tab: any[], idx?: number): any;
-    function sort(tab: any[], comp?: (a: any, b: any) => boolean): void;
-    function pack(...args: any[]): any[];
-    function unpack(tab: any[], start?: number, end?: number): LuaMultiReturn<[...any[]]>;
 }
 /** @noSelf */
 interface ITerminal {
