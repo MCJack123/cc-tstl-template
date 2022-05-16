@@ -97,26 +97,26 @@ type FileAttributes = {
 }
 
 declare const fs: {
-    list(path: string): string[];
-    exists(path: string): boolean;
-    isDir(path: string): boolean;
-    isReadOnly(path: string): boolean;
-    getName(path: string): string;
-    getDrive(path: string): string;
-    getSize(path: string): number;
-    getFreeSpace(path: string): number;
-    makeDir(path: string): void;
-    move(from: string, to: string): void;
-    copy(from: string, to: string): void;
-    'delete'(path: string): void;
-    combine(base: string, ...local: string[]): string;
-    open(path: string, mode: string): LuaMultiReturn<[FileHandle] | [null, string]>;
-    find(wildcard: string): string[];
-    getDir(path: string): string;
-    complete(partial: string, path: string, includeFiles?: boolean, includeSlashes?: boolean): string[];
-    getCapacity(path: string): number;
-    attributes(path: string): FileAttributes;
-    isDriveRoot(path: string): boolean;
+    list(this: void, path: string): string[];
+    exists(this: void, path: string): boolean;
+    isDir(this: void, path: string): boolean;
+    isReadOnly(this: void, path: string): boolean;
+    getName(this: void, path: string): string;
+    getDrive(this: void, path: string): string;
+    getSize(this: void, path: string): number;
+    getFreeSpace(this: void, path: string): number;
+    makeDir(this: void, path: string): void;
+    move(this: void, from: string, to: string): void;
+    copy(this: void, from: string, to: string): void;
+    'delete'(this: void, path: string): void;
+    combine(this: void, base: string, ...local: string[]): string;
+    open(this: void, path: string, mode: string): LuaMultiReturn<[FileHandle] | [null, string]>;
+    find(this: void, wildcard: string): string[];
+    getDir(this: void, path: string): string;
+    complete(this: void, partial: string, path: string, includeFiles?: boolean, includeSlashes?: boolean): string[];
+    getCapacity(this: void, path: string): number;
+    attributes(this: void, path: string): FileAttributes;
+    isDriveRoot(this: void, path: string): boolean;
 }
 declare function sleep(time: number): void;
 declare function write(str: string): number;
@@ -293,7 +293,7 @@ declare const keys: {
     yen: Key;
     z: Key;
     zero: Key;
-    getName(k: Key): string;
+    getName(this: void, k: Key): string;
 }
 declare namespace multishell {
     function getFocus(): number;
