@@ -775,8 +775,9 @@ declare class Vector {
     public tostring(this: Vector): string;
     public equals(this: Vector, o: Vector): boolean;
 }
-/** @customConstructor window.create */
-/** @noSelf */
+/**
+ * @customConstructor window.create
+ * @noSelf */
 declare class Window implements ITerminal {
     constructor(parent: ITerminal, x: number, y: number, width: number, height: number, visible?: boolean);
     public write(text: string): void;
