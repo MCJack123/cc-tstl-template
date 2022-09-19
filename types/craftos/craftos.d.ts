@@ -337,6 +337,8 @@ declare namespace os {
     function reboot(): void;
     function epoch(mode?: string | null): number;
     function date(format?: string | null, time?: number | null): string | LuaDate;
+    function pullEvent(filter?: string | null): LuaMultiReturn<[string, ...any[]]>;
+    function pullEventRaw(filter?: string | null): LuaMultiReturn<[string, ...any[]]>;
 }
 declare namespace paintutils {
     function parseImage(image: string): number[][] | null;
