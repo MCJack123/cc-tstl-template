@@ -2,7 +2,7 @@
 Template project for ComputerCraft programs written in TypeScript. Uses [TypeScriptToLua](https://typescripttolua.github.io) to compile with ComputerCraft typing declarations.
 
 ## Usage
-1. Clone the repository (or download the ZIP). You can also use the "Use this repository" button on GitHub to fork the repo directly.
+1. Clone the repository (or download the ZIP). You can also use the [Use this repository](https://github.com/MCJack123/cc-tstl-template/generate) button on GitHub to fork the repo directly.
 2. Run `npm install` to install dependencies, including TypeScriptToLua.
 3. Customize `package.json` if you want - it's not used in CC.
 4. Add your code to `main.ts`, and add other files as desired.
