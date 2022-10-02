@@ -5,6 +5,7 @@
 type Color = number;
 type Colour = Color;
 
+/** @noSelf **/
 declare namespace colors {
     var white: Color;
     var orange: Color;
@@ -30,6 +31,7 @@ declare namespace colors {
     function toBlit(color: Color): string;
 }
 
+/** @noSelf **/
 declare namespace colours {
     var white: Colour;
     var orange: Colour;
@@ -54,6 +56,7 @@ declare namespace colours {
     function unpackRGB(rgb: number): LuaMultiReturn<[number, number, number]>;
     function toBlit(color: Colour): string;
 }
+/** @noSelf **/
 declare namespace commands {
   function exec(command: string): LuaMultiReturn<[boolean, LuaTable | Object]>;
   function execAsync(command: string): number;
@@ -62,7 +65,7 @@ declare namespace commands {
   function getBlockInfo(x: number, y: number, z: number): LuaTable | Object;
   function getBlockInfos(x1: number, y1: number, z1: number, x2: number, y2: number, z2: number): LuaTable | Object;
 }
-
+/** @noSelf **/
 declare namespace disk {
     function isPresent(name: string): boolean;
     function getLabel(name: string): string | null;
@@ -126,10 +129,12 @@ declare function read(replaceChar?: string, history?: string[], completeFn?: (pa
 declare var _CC_DEFAULT_SETTINGS: string;
 declare var _CC_DISABLE_LUA51_FEATURES: boolean;
 declare var _HOST: string;
+/** @noSelf **/
 declare namespace gps {
     var CHANNEL_GPS: number;
     function locate(timeout?: number, debug?: boolean): LuaMultiReturn<[number, number, number]>;
 }
+/** @noSelf **/
 declare namespace help {
     function path(): string;
     function setPath(path: string): void;
@@ -163,6 +168,7 @@ declare class WebSocket {
     public close(): void;
 }
 
+/** @noSelf **/
 declare namespace http {
     function request(url: string, body?: string, headers?: Map<string, string>, binary?: boolean): void;
     function get(url: string, headers?: Map<string, string>, binary?: boolean): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
@@ -295,6 +301,7 @@ declare const keys: {
     zero: Key;
     getName(this: void, k: Key): string;
 }
+/** @noSelf **/
 declare namespace multishell {
     function getFocus(): number;
     function setFocus(n: number): void;
@@ -315,7 +322,7 @@ declare type LuaDate = {
     yday: number;
     isdst: boolean;
 }
-
+/** @noSelf **/
 declare namespace os {
     function version(): string;
     function getComputerID(): number;
@@ -340,6 +347,7 @@ declare namespace os {
     function pullEvent(filter?: string | null): LuaMultiReturn<[string, ...any[]]>;
     function pullEventRaw(filter?: string | null): LuaMultiReturn<[string, ...any[]]>;
 }
+/** @noSelf **/
 declare namespace paintutils {
     function parseImage(image: string): number[][] | null;
     function loadImage(path: string): number[][] | null;
@@ -349,6 +357,7 @@ declare namespace paintutils {
     function drawFilledBox(startX: number, startY: number, endX: number, endY: number, color?: Color): void;
     function drawImage(image: number[][], x: number, y: number): void;
 }
+/** @noSelf **/
 declare namespace parallel {
     function waitForany(...args: (() => void)[]): void;
     function waitForAll(...args: (() => void)[]): void;
@@ -505,7 +514,7 @@ declare class InventoryPeripheral implements IPeripheral {
     pushItems(to: string, slot: number, limit?: number, toSlot?: number): number;
     pullItems(from: string, slot: number, limit?: number, fromSlot?: number): number;
 }
-
+/** @noSelf **/
 declare namespace peripheral {
     function getNames(): string[];
     function isPresent(name: string): boolean;
@@ -517,10 +526,12 @@ declare namespace peripheral {
     function wrap(name: string): IPeripheral;
     function find(type: string, filter?: (peripheral: IPeripheral) => boolean): LuaMultiReturn<[...IPeripheral[]]>;
 }
+/** @noSelf **/
 declare namespace pocket {
     function equipBack(): LuaMultiReturn<[boolean, string | null]>;
     function unequipBack(): LuaMultiReturn<[boolean, string | null]>;
 }
+/** @noSelf **/
 declare namespace rednet {
     var CHANNEL_BROADCAST: number;
     var CHANNEL_REPEAT: number;
@@ -535,6 +546,7 @@ declare namespace rednet {
     function lookup(protocol: string, hostname?: string): void;
     function run(): void;
 }
+/** @noSelf **/
 declare namespace redstone {
     function getSides(): string[];
     function setOutput(side: string, on: boolean): void;
@@ -556,7 +568,7 @@ type SettingOptions = {
     default?: any;
     type?: string;
 }
-
+/** @noSelf **/
 declare namespace settings {
     function define(name: string, options?: SettingOptions): void;
     function undefine(name: string): void;
@@ -569,6 +581,7 @@ declare namespace settings {
     function load(path?: string): void;
     function save(path?: string): void;
 }
+/** @noSelf **/
 declare namespace shell {
     function exit(): void;
     function dir(): string;
@@ -628,7 +641,7 @@ interface ITerminal {
     getFrozen(): boolean;
     setFrozen(frozen: boolean): void;
 }
-
+/** @noSelf **/
 declare namespace term {
     function redirect(term: ITerminal): ITerminal;
     function current(): ITerminal;
@@ -678,7 +691,7 @@ type SerializeOptions = {
     compact?: boolean;
     allow_repetitions?: boolean;
 }
-
+/** @noSelf **/
 declare namespace textutils {
     var empty_json_array: Object;
     var json_null: Object;
@@ -699,6 +712,7 @@ declare namespace textutils {
     function urlEncode(url: string): string;
     function complete(searchText: string, searchTable?: any): string[];
 }
+/** @noSelf **/
 declare namespace turtle {
   function craft(quantity: number): boolean;
   function forward(): boolean;
