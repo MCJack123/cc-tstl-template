@@ -1,12 +1,11 @@
 {
-    "$schema": "https://raw.githubusercontent.com/TypeScriptToLua/vscode-typescript-to-lua/master/tsconfig-schema.json",
+    "$schema": "https://raw.githubusercontent.com/MCJack123/TypeScriptToLua/master/tsconfig-schema.json",
     "compilerOptions": {
         "target": "ESNext",
         "lib": ["ESNext"],
         "moduleResolution": "node",
         "strict": false,
-        "typeRoots": ["./types"],
-        "types": ["@jackmacwindows/lua-types/cc", "craftos", "cc"]
+        "types": ["@jackmacwindows/lua-types/cc", "@jackmacwindows/craftos-types", "@jackmacwindows/cc-types"]
     },
     "tstl": {
         "luaTarget": "CC",

@@ -49,6 +49,7 @@ The `tsconfig.json` file contains some options used by TypeScriptToLua to adjust
   * `require`: Generates a single `lualib_bundle.lua` file with all of the boilerplate, and each script `require`s the file. This can generate more code than you need, however. Recommended for projects with lots of files and/or uses lots of JavaScript language features.
   * `always`: Appears to be the same as `require`.
   * `none`: Generates no boilerplate code. **Do not use this if you use ANY JavaScript features that do not have a 1:1 conversion to Lua.** Not recommended unless size is a major concern and TS is used simply for syntax. (You'll need to remove `event.ts` to use it.)
+* `luaLibName`: If `luaLibImport` is set to `require`, this sets the name of the output file for boilerplate. (This is useful for code targeted for Phoenix, which exports it in a library named `typescript`.)
 * `sourceMapTraceback`: Overrides `debug.traceback` to add TypeScript source line numbers instead of Lua lines. This changes globals, so it's not recommended in production, but it can be useful for debugging.
 * `luaBundle`: Defines the name of the output Lua file - all TypeScript sources are bundled into this file. If unset, each file will be output separately with the same name as the TS source. This defaults to `main.lua`, matching `main.ts`.
 * `luaBundleEntry`: If `luaBundle` is set, this marks the TypeScript file that should be executed. This defaults to `main.ts`.

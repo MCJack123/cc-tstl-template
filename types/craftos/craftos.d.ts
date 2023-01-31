@@ -1,6 +1,6 @@
 /** @noSelfInFile **/
 
-// Latest CC version: 1.100.3
+// Latest CC version: 1.102.2
 
 type Color = number;
 type Colour = Color;
@@ -117,6 +117,7 @@ declare const fs: {
     find(this: void, wildcard: string): string[];
     getDir(this: void, path: string): string;
     complete(this: void, partial: string, path: string, includeFiles?: boolean, includeSlashes?: boolean): string[];
+    complete(this: void, partial: string, path: string, options: {include_dirs?: boolean, include_files?: boolean, include_hidden?: boolean}): string[];
     getCapacity(this: void, path: string): number;
     attributes(this: void, path: string): FileAttributes;
     isDriveRoot(this: void, path: string): boolean;

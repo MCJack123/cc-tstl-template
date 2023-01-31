@@ -1,6 +1,9 @@
 {
-    "name": "craftos",
+    "name": "@jackmacwindows/craftos-types",
     "version": "1.1.1",
+    "description": "TypeScript type definitions for base CraftOS APIs.",
     "types": "./craftos.d.ts",
-    "files": ["./craftos.d.ts"]
+    "files": ["./craftos.d.ts"],
+    "author": "JackMacWindows",
+    "license": "MIT"
 }
