@@ -360,7 +360,7 @@ declare namespace paintutils {
 }
 /** @noSelf **/
 declare namespace parallel {
-    function waitForany(...args: (() => void)[]): void;
+    function waitForAny(...args: (() => void)[]): void;
     function waitForAll(...args: (() => void)[]): void;
 }
 /** @noSelf */
