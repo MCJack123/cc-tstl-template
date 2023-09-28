@@ -669,6 +669,8 @@ declare namespace term {
     function getBackgroundColour(): Colour;
     function setBackgroundColor(color: Color): void;
     function setBackgroundColour(color: Colour): void;
+    function nativePaletteColor(color: number): LuaMultiReturn<[number, number, number]>;
+    function nativePaletteColour(colour: number): LuaMultiReturn<[number, number, number]>;
     function getPaletteColor(color: Color): LuaMultiReturn<[number, number, number]>;
     function getPaletteColour(color: Colour): LuaMultiReturn<[number, number, number]>;
     function setPaletteColor(color: Color, rgb: number): void;
