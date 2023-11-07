@@ -68,12 +68,12 @@ declare namespace commands {
 /** @noSelf **/
 declare namespace disk {
     function isPresent(name: string): boolean;
-    function getLabel(name: string): string | null;
-    function setLabel(name: string, label?: string | null): void;
+    function getLabel(name: string): string | undefined;
+    function setLabel(name: string, label?: string | undefined): void;
     function hasData(name: string): boolean;
-    function getMountPath(name: string): string | null;
+    function getMountPath(name: string): string | undefined;
     function hasAudio(name: string): boolean;
-    function getAudioTitle(name: string): string | null;
+    function getAudioTitle(name: string): string | undefined;
     function playAudio(name: string): void;
     function stopAudio(name: string): void;
     function eject(name: string): void;
@@ -113,7 +113,7 @@ declare const fs: {
     copy(this: void, from: string, to: string): void;
     'delete'(this: void, path: string): void;
     combine(this: void, base: string, ...local: string[]): string;
-    open(this: void, path: string, mode: string): LuaMultiReturn<[FileHandle] | [null, string]>;
+    open(this: void, path: string, mode: string): LuaMultiReturn<[FileHandle] | [undefined, string]>;
     find(this: void, wildcard: string): string[];
     getDir(this: void, path: string): string;
     complete(this: void, partial: string, path: string, includeFiles?: boolean, includeSlashes?: boolean): string[];
@@ -145,41 +145,41 @@ declare namespace help {
 }
 type RequestOptions = {
     url: string;
-    body: string | null;
-    headers: Map<string, string> | null;
-    binary: boolean | null;
-    method: string | null;
-    redirect: boolean | null;
+    body: string | undefined;
+    headers: LuaMap<string, string> | undefined;
+    binary: boolean | undefined;
+    method: string | undefined;
+    redirect: boolean | undefined;
 }
 
 /** @noSelf */
 declare class HTTPResponse {
     public getResponseCode(): number;
-    public getResponseHeaders(): Map<string, string>;
-    public read(count?: number): string | number | null;
-    public readLine(withTrailing: boolean): string | null;
-    public readAll(): string | null;
+    public getResponseHeaders(): LuaMap<string, string>;
+    public read(count?: number): string | number | undefined;
+    public readLine(withTrailing: boolean): string | undefined;
+    public readAll(): string | undefined;
     public close(): void;
 }
 
 /** @noSelf */
 declare class WebSocket {
-    public receive(timeout?: number): string | null;
+    public receive(timeout?: number): string | undefined;
     public send(message: string, binary?: boolean): void;
     public close(): void;
 }
 
 /** @noSelf **/
 declare namespace http {
-    function request(url: string, body?: string, headers?: Map<string, string>, binary?: boolean): void;
-    function get(url: string, headers?: Map<string, string>, binary?: boolean): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
+    function request(url: string, body?: string, headers?: LuaMap<string, string>, binary?: boolean): void;
+    function get(url: string, headers?: LuaMap<string, string>, binary?: boolean): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
     function get(options: RequestOptions): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
-    function post(url: string, body?: string, headers?: Map<string, string>, binary?: boolean): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
+    function post(url: string, body?: string, headers?: LuaMap<string, string>, binary?: boolean): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
     function post(options: RequestOptions): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
     function checkURLAsync(url: string): void;
     function checkURL(url: string): boolean;
-    function websocket(url: string, headers?: Map<string, string>): LuaMultiReturn<[WebSocket] | [boolean, string]>;
-    function websocketAsync(url: string, headers?: Map<string, string>): void;
+    function websocket(url: string, headers?: LuaMap<string, string>): LuaMultiReturn<[WebSocket] | [boolean, string]>;
+    function websocketAsync(url: string, headers?: LuaMap<string, string>): void;
 }
 type Key = number;
 
@@ -306,7 +306,7 @@ declare const keys: {
 declare namespace multishell {
     function getFocus(): number;
     function setFocus(n: number): void;
-    function getTitle(n: number): string | null;
+    function getTitle(n: number): string | undefined;
     function setTitle(n: number, title: string): void;
     function getCurrent(): number;
     function launch(env: LuaTable, path: string, ...args: string[]): number;
@@ -328,30 +328,30 @@ declare namespace os {
     function version(): string;
     function getComputerID(): number;
     function computerID(): number;
-    function getComputerLabel(): string | null;
-    function computerLabel(): string | null;
-    function setComputerLabel(label?: string | null): void;
+    function getComputerLabel(): string | undefined;
+    function computerLabel(): string | undefined;
+    function setComputerLabel(label?: string | undefined): void;
     function run(env: LuaTable, path: string, ...args: string[]): boolean;
     function queueEvent(type: string, ...param: any[]): void;
     function clock(): number;
     function startTimer(timeout: number): number;
     function cancelTimer(id: number): void;
-    function time(mode?: string | null): number;
+    function time(mode?: string | undefined): number;
     function sleep(timeout: number): void;
-    function day(mode?: string | null): number;
+    function day(mode?: string | undefined): number;
     function setAlarm(time: number): number;
     function cancelAlarm(id: number): void;
     function shutdown(): void;
     function reboot(): void;
-    function epoch(mode?: string | null): number;
-    function date(format?: string | null, time?: number | null): string | LuaDate;
-    function pullEvent(filter?: string | null): LuaMultiReturn<[string, ...any[]]>;
-    function pullEventRaw(filter?: string | null): LuaMultiReturn<[string, ...any[]]>;
+    function epoch(mode?: string | undefined): number;
+    function date(format?: string | undefined, time?: number | undefined): string | LuaDate;
+    function pullEvent(filter?: string | undefined): LuaMultiReturn<[string, ...any[]]>;
+    function pullEventRaw(filter?: string | undefined): LuaMultiReturn<[string, ...any[]]>;
 }
 /** @noSelf **/
 declare namespace paintutils {
-    function parseImage(image: string): number[][] | null;
-    function loadImage(path: string): number[][] | null;
+    function parseImage(image: string): number[][] | undefined;
+    function loadImage(path: string): number[][] | undefined;
     function drawPixel(x: number, y: number, color?: Color): void;
     function drawLine(startX: number, startY: number, endX: number, endY: number, color?: Color): void;
     function drawBox(startX: number, startY: number, endX: number, endY: number, color?: Color): void;
@@ -370,7 +370,7 @@ interface IPeripheral {}
 declare class CommandPeripheral implements IPeripheral {
     getCommand(): string;
     setCommand(command: string): void;
-    runCommand(): LuaMultiReturn<[boolean, string | null]>;
+    runCommand(): LuaMultiReturn<[boolean, string | undefined]>;
 }
 
 /** @noSelf */
@@ -387,7 +387,7 @@ declare class ComputerPeripheral implements IPeripheral {
 declare class DrivePeripheral implements IPeripheral {
     isDiskPresent(): boolean;
     getDiskLabel(): string;
-    setDiskLabel(label?: string | null): void;
+    setDiskLabel(label?: string | undefined): void;
     hasData(): boolean;
     getMountPath(): string;
     hasAudio(): boolean;
@@ -465,7 +465,7 @@ declare class PrinterPeripheral implements IPeripheral {
     getPageSize(): LuaMultiReturn<[number, number]>;
     newPage(): void;
     endPage(): void;
-    setPageTitle(title?: string | null): void;
+    setPageTitle(title?: string | undefined): void;
     getInkLevel(): number;
     getPaperLevel(): number;
 }
@@ -510,7 +510,7 @@ declare type ItemDetail = {
 declare class InventoryPeripheral implements IPeripheral {
     size(): number;
     list(): {[index: number]: {name: string, count: number, nbt?: string}};
-    getItemDetail(slot: number): ItemDetail|null;
+    getItemDetail(slot: number): ItemDetail|undefined;
     getItemLimit(slot: number): number;
     pushItems(to: string, slot: number, limit?: number, toSlot?: number): number;
     pullItems(from: string, slot: number, limit?: number, fromSlot?: number): number;
@@ -520,8 +520,8 @@ declare namespace peripheral {
     function getNames(): string[];
     function isPresent(name: string): boolean;
     function getType(peripheral: IPeripheral|string): LuaMultiReturn<[...string[]]>;
-    function hasType(peripheral: IPeripheral|string, type: string): boolean|null;
-    function getMethods(name: string): string[]|null;
+    function hasType(peripheral: IPeripheral|string, type: string): boolean|undefined;
+    function getMethods(name: string): string[]|undefined;
     function getName(peripheral: IPeripheral): string;
     function call(side: string, method: string, ...args: any[]): LuaMultiReturn<[...any[]]>;
     function wrap(name: string): IPeripheral;
@@ -529,8 +529,8 @@ declare namespace peripheral {
 }
 /** @noSelf **/
 declare namespace pocket {
-    function equipBack(): LuaMultiReturn<[boolean, string | null]>;
-    function unequipBack(): LuaMultiReturn<[boolean, string | null]>;
+    function equipBack(): LuaMultiReturn<[boolean, string | undefined]>;
+    function unequipBack(): LuaMultiReturn<[boolean, string | undefined]>;
 }
 /** @noSelf **/
 declare namespace rednet {
@@ -541,7 +541,7 @@ declare namespace rednet {
     function isOpen(modem?: string): void;
     function send(recipient: number, message: any, protocol?: string): void;
     function broadcast(message: any, protocol?: string): void;
-    function receive(filter?: string | null, timeout?: number): LuaMultiReturn<[number, any, string | null] | [null]>;
+    function receive(filter?: string | undefined, timeout?: number): LuaMultiReturn<[number, any, string | undefined] | [undefined]>;
     function host(protocol: string, hostname: string): void;
     function unhost(protocol: string): void;
     function lookup(protocol: string, hostname?: string): void;
