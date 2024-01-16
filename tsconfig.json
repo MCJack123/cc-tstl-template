@@ -5,10 +5,10 @@
         "lib": ["ESNext"],
         "moduleResolution": "node",
         "strict": false,
-        "types": ["@jackmacwindows/lua-types/cc", "@jackmacwindows/craftos-types", "@jackmacwindows/cc-types"]
+        "types": ["@jackmacwindows/lua-types/cc-5.2", "@jackmacwindows/craftos-types", "@jackmacwindows/cc-types"]
     },
     "tstl": {
-        "luaTarget": "CC",
+        "luaTarget": "CC-5.2",
         "luaLibImport": "inline",
         "luaBundle": "main.lua",
         "luaBundleEntry": "main.ts"

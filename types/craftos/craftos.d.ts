@@ -29,6 +29,7 @@ declare namespace colors {
     function packRGB(r: number, g: number, b: number): number;
     function unpackRGB(rgb: number): LuaMultiReturn<[number, number, number]>;
     function toBlit(color: Color): string;
+    function fromBlit(color: string): Color | undefined;
 }
 
 /** @noSelf **/
@@ -80,12 +81,18 @@ declare namespace disk {
     function getID(name: string): number;
 }
 /** @noSelf */
-declare class FileHandle {
+declare class ReadFileHandle {
     public close(): void;
-    public seek(whence?: string, offset?: number): number;
+    public seek(whence?: "cur" | "set" | "end", offset?: number): number;
     public read(count?: number): string | number;
     public readLine(withTrailing?: boolean): string;
     public readAll(): string;
+}
+
+/** @noSelf */
+declare class WriteFileHandle {
+    public close(): void;
+    public seek(whence?: "cur" | "set" | "end", offset?: number): number;
     public write(value: any): void;
     public writeLine(value: string): void;
     public flush(): void;
@@ -113,7 +120,9 @@ declare const fs: {
     copy(this: void, from: string, to: string): void;
     'delete'(this: void, path: string): void;
     combine(this: void, base: string, ...local: string[]): string;
-    open(this: void, path: string, mode: string): LuaMultiReturn<[FileHandle] | [undefined, string]>;
+    open(this: void, path: string, mode: "r" | "rb"): LuaMultiReturn<[ReadFileHandle] | [undefined, string]>;
+    open(this: void, path: string, mode: "w" | "wb" | "a" | "ab"): LuaMultiReturn<[WriteFileHandle] | [undefined, string]>;
+    open(this: void, path: string, mode: "r+" | "rb+" | "w+" | "wb+" | "a+" | "ab+"): LuaMultiReturn<[ReadFileHandle & WriteFileHandle] | [undefined, string]>;
     find(this: void, wildcard: string): string[];
     getDir(this: void, path: string): string;
     complete(this: void, partial: string, path: string, includeFiles?: boolean, includeSlashes?: boolean): string[];
@@ -150,6 +159,12 @@ type RequestOptions = {
     binary: boolean | undefined;
     method: string | undefined;
     redirect: boolean | undefined;
+    timeout: number | undefined;
+}
+type WebSocketOptions = {
+    url: string;
+    headers: LuaMap<string, string> | undefined;
+    timeout: number | undefined;
 }
 
 /** @noSelf */
@@ -172,6 +187,7 @@ declare class WebSocket {
 /** @noSelf **/
 declare namespace http {
     function request(url: string, body?: string, headers?: LuaMap<string, string>, binary?: boolean): void;
+    function request(options: RequestOptions): void;
     function get(url: string, headers?: LuaMap<string, string>, binary?: boolean): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
     function get(options: RequestOptions): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
     function post(url: string, body?: string, headers?: LuaMap<string, string>, binary?: boolean): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
@@ -179,7 +195,9 @@ declare namespace http {
     function checkURLAsync(url: string): void;
     function checkURL(url: string): boolean;
     function websocket(url: string, headers?: LuaMap<string, string>): LuaMultiReturn<[WebSocket] | [boolean, string]>;
+    function websocket(options: WebSocketOptions): LuaMultiReturn<[WebSocket] | [boolean, string]>;
     function websocketAsync(url: string, headers?: LuaMap<string, string>): void;
+    function websocketAsync(options: WebSocketOptions): void;
 }
 type Key = number;
 
@@ -689,10 +707,16 @@ declare namespace term {
 type UnserializeJSONOptions = {
     nbt_style?: boolean;
     parse_null?: boolean;
+    parse_empty_array?: boolean;
 }
 type SerializeOptions = {
     compact?: boolean;
     allow_repetitions?: boolean;
+}
+type SerializeJSONOptions = {
+    nbtStyle?: boolean;
+    allow_repetitions?: boolean;
+    unicode_strings?: boolean;
 }
 /** @noSelf **/
 declare namespace textutils {
@@ -708,6 +732,8 @@ declare namespace textutils {
     function serialise(tab: any, options?: SerializeOptions): string;
     function serializeJSON(tab: any, nbtStyle?: boolean): string;
     function serialiseJSON(tab: any, nbtStyle?: boolean): string;
+    function serializeJSON(tab: any, options: SerializeJSONOptions): string;
+    function serialiseJSON(tab: any, options: SerializeJSONOptions): string;
     function unserialize(str: string): any;
     function unserialise(str: string): any;
     function unserializeJSON(str: string, options?: UnserializeJSONOptions): any;
