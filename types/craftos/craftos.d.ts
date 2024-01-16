@@ -1,6 +1,6 @@
 /** @noSelfInFile **/
 
-// Latest CC version: 1.102.2
+// Latest CC version: 1.109.3
 
 type Color = number;
 type Colour = Color;
@@ -154,17 +154,17 @@ declare namespace help {
 }
 type RequestOptions = {
     url: string;
-    body: string | undefined;
-    headers: LuaMap<string, string> | undefined;
-    binary: boolean | undefined;
-    method: string | undefined;
-    redirect: boolean | undefined;
-    timeout: number | undefined;
+    body?: string;
+    headers?: LuaMap<string, string>;
+    binary?: boolean;
+    method?: string;
+    redirect?: boolean;
+    timeout?: number;
 }
 type WebSocketOptions = {
     url: string;
-    headers: LuaMap<string, string> | undefined;
-    timeout: number | undefined;
+    headers?: LuaMap<string, string>;
+    timeout?: number;
 }
 
 /** @noSelf */
@@ -188,14 +188,14 @@ declare class WebSocket {
 declare namespace http {
     function request(url: string, body?: string, headers?: LuaMap<string, string>, binary?: boolean): void;
     function request(options: RequestOptions): void;
-    function get(url: string, headers?: LuaMap<string, string>, binary?: boolean): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
-    function get(options: RequestOptions): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
-    function post(url: string, body?: string, headers?: LuaMap<string, string>, binary?: boolean): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
-    function post(options: RequestOptions): LuaMultiReturn<[HTTPResponse] | [boolean, string, HTTPResponse?]>;
+    function get(url: string, headers?: LuaMap<string, string>, binary?: boolean): LuaMultiReturn<[HTTPResponse] | [undefined, string, HTTPResponse?]>;
+    function get(options: RequestOptions): LuaMultiReturn<[HTTPResponse] | [undefined, string, HTTPResponse?]>;
+    function post(url: string, body?: string, headers?: LuaMap<string, string>, binary?: boolean): LuaMultiReturn<[HTTPResponse] | [undefined, string, HTTPResponse?]>;
+    function post(options: RequestOptions): LuaMultiReturn<[HTTPResponse] | [undefined, string, HTTPResponse?]>;
     function checkURLAsync(url: string): void;
     function checkURL(url: string): boolean;
-    function websocket(url: string, headers?: LuaMap<string, string>): LuaMultiReturn<[WebSocket] | [boolean, string]>;
-    function websocket(options: WebSocketOptions): LuaMultiReturn<[WebSocket] | [boolean, string]>;
+    function websocket(url: string, headers?: LuaMap<string, string>): LuaMultiReturn<[WebSocket] | [false, string]>;
+    function websocket(options: WebSocketOptions): LuaMultiReturn<[WebSocket] | [false, string]>;
     function websocketAsync(url: string, headers?: LuaMap<string, string>): void;
     function websocketAsync(options: WebSocketOptions): void;
 }
