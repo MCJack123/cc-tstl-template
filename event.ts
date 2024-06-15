@@ -352,7 +352,7 @@ type Constructor<T extends {} = {}> = new (...args: any[]) => T;
 export function pullEventRaw(filter: string | null = null): IEvent | null {
     let args: any[] = table.pack(coroutine.yield(filter));
     for (let init of eventInitializers) {
-        let ev = init(args);
+        let ev = init(args[0]);
         if (ev != null) return ev;
     }
     return GenericEvent.init(args);
