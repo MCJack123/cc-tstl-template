@@ -59,12 +59,12 @@ declare namespace colours {
 }
 /** @noSelf **/
 declare namespace commands {
-  function exec(command: string): LuaMultiReturn<[boolean, LuaTable | Object]>;
+  function exec(command: string): LuaMultiReturn<[boolean, string[], number | undefined]>;
   function execAsync(command: string): number;
-  function list(command: string): LuaTable | Object;
+  function list(command: string): string[];
   function getBlockPosition(): LuaMultiReturn<[number, number, number]>;
-  function getBlockInfo(x: number, y: number, z: number): LuaTable | Object;
-  function getBlockInfos(x1: number, y1: number, z1: number, x2: number, y2: number, z2: number): LuaTable | Object;
+  function getBlockInfo(x: number, y: number, z: number, dimension?: string): LuaTable | Object;
+  function getBlockInfos(x1: number, y1: number, z1: number, x2: number, y2: number, z2: number, dimension?: string): (LuaTable | Object)[];
 }
 /** @noSelf **/
 declare namespace disk {
@@ -148,7 +148,7 @@ declare namespace gps {
 declare namespace help {
     function path(): string;
     function setPath(path: string): void;
-    function lookup(topic: string): string;
+    function lookup(topic: string): string | undefined;
     function topics(): string[];
     function completeTopic(prefix: string): string[];
 }
@@ -323,7 +323,7 @@ declare const keys: {
 /** @noSelf **/
 declare namespace multishell {
     function getFocus(): number;
-    function setFocus(n: number): void;
+    function setFocus(n: number): boolean;
     function getTitle(n: number): string | undefined;
     function setTitle(n: number, title: string): void;
     function getCurrent(): number;
@@ -542,8 +542,8 @@ declare namespace peripheral {
     function getMethods(name: string): string[]|undefined;
     function getName(peripheral: IPeripheral): string;
     function call(side: string, method: string, ...args: any[]): LuaMultiReturn<[...any[]]>;
-    function wrap(name: string): IPeripheral;
-    function find(type: string, filter?: (peripheral: IPeripheral) => boolean): LuaMultiReturn<[...IPeripheral[]]>;
+    function wrap(name: string): IPeripheral | undefined;
+    function find(type: string, filter?: (name: string, peripheral: IPeripheral) => boolean): LuaMultiReturn<[...IPeripheral[]]>;
 }
 /** @noSelf **/
 declare namespace pocket {
@@ -554,15 +554,16 @@ declare namespace pocket {
 declare namespace rednet {
     var CHANNEL_BROADCAST: number;
     var CHANNEL_REPEAT: number;
+    var MAX_ID_CHANNELS: number;
     function open(modem: string): void;
     function close(modem?: string): void;
-    function isOpen(modem?: string): void;
-    function send(recipient: number, message: any, protocol?: string): void;
+    function isOpen(modem?: string): boolean;
+    function send(recipient: number, message: any, protocol?: string): boolean;
     function broadcast(message: any, protocol?: string): void;
-    function receive(filter?: string | undefined, timeout?: number): LuaMultiReturn<[number, any, string | undefined] | [undefined]>;
+    function receive(filter?: string, timeout?: number): LuaMultiReturn<[number, any, string | undefined] | [undefined]>;
     function host(protocol: string, hostname: string): void;
     function unhost(protocol: string): void;
-    function lookup(protocol: string, hostname?: string): void;
+    function lookup(protocol: string, hostname?: string): LuaMultiReturn<[...number[]]>;
     function run(): void;
 }
 /** @noSelf **/
@@ -597,8 +598,8 @@ declare namespace settings {
     function unset(name: string): void;
     function clear(): void;
     function getNames(): string[];
-    function load(path?: string): void;
-    function save(path?: string): void;
+    function load(path?: string): boolean;
+    function save(path?: string): boolean;
 }
 /** @noSelf **/
 declare namespace shell {
@@ -812,7 +813,7 @@ declare class Vector {
     public mul(this: Vector, o: number): Vector;
     public div(this: Vector, o: number): Vector;
     public unm(this: Vector): Vector;
-    public dot(this: Vector, o: Vector): Vector;
+    public dot(this: Vector, o: Vector): number;
     public cross(this: Vector, o: Vector): Vector;
     public length(this: Vector): number;
     public normalize(this: Vector): Vector;
