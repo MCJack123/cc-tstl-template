@@ -743,61 +743,60 @@ declare namespace textutils {
 }
 /** @noSelf **/
 declare namespace turtle {
-  function craft(quantity: number): boolean;
-  function forward(): boolean;
-  function back(): boolean;
-  function up(): boolean;
-  function down(): boolean;
-  function turnLeft(): boolean;
-  function turnRight(): boolean;
-  function select(slotNum: number): boolean;
+  function craft(quantity?: number): LuaMultiReturn<[true, undefined] | [false, string]>;
+  function forward(): LuaMultiReturn<[boolean, string | undefined]>;
+  function back(): LuaMultiReturn<[boolean, string | undefined]>;
+  function up(): LuaMultiReturn<[boolean, string | undefined]>;
+  function down(): LuaMultiReturn<[boolean, string | undefined]>;
+  function turnLeft(): LuaMultiReturn<[boolean, string | undefined]>;
+  function turnRight(): LuaMultiReturn<[boolean, string | undefined]>;
+  function select(slotNum: number): true;
   function getSelectedSlot(): number;
 
   function getItemCount(slotNum?: number): number;
 
   function getItemSpace(slotNum?: number): number;
 
-  function getItemDetail(slotNum?: number): LuaTable | Object;
+  function getItemDetail(slotNum?: number, detailed?: boolean): LuaTable | Object | undefined;
 
-  function equipLeft(): boolean;
-  function equipRight(): boolean;
+  function equipLeft(): LuaMultiReturn<[true, undefined] | [false, string]>;
+  function equipRight(): LuaMultiReturn<[true, undefined] | [false, string]>;
 
-  function attack(toolSide?: string): boolean;
-  function attackUp(toolSide?: string): boolean;
-  function attackDown(toolSide?: string): boolean;
+  function attack(toolSide?: 'left' | 'right'): LuaMultiReturn<[boolean, string | undefined]>;
+  function attackUp(toolSide?: 'left' | 'right'): LuaMultiReturn<[boolean, string | undefined]>;
+  function attackDown(toolSide?: 'left' | 'right'): LuaMultiReturn<[boolean, string | undefined]>;
 
-  function dig(toolSide?: string): boolean;
-  function digUp(toolSide?: string): boolean;
-  function digDown(toolSide?: string): boolean;
+  function dig(toolSide?: 'left' | 'right'): LuaMultiReturn<[boolean, string | undefined]>;
+  function digUp(toolSide?: 'left' | 'right'): LuaMultiReturn<[boolean, string | undefined]>;
+  function digDown(toolSide?: 'left' | 'right'): LuaMultiReturn<[boolean, string | undefined]>;
 
-  function place(toolSide?: string): boolean;
-  function placeUp(toolSide?: string): boolean;
-  function placeDown(toolSide?: string): boolean;
+  function place(text?: string): LuaMultiReturn<[boolean, string | undefined]>;
+  function placeUp(text?: string): LuaMultiReturn<[boolean, string | undefined]>;
+  function placeDown(text?: string): LuaMultiReturn<[boolean, string | undefined]>;
 
-  function detect(toolSide?: string): boolean;
-  function detectUp(toolSide?: string): boolean;
-  function detectDown(toolSide?: string): boolean;
+  function detect(): boolean;
+  function detectUp(): boolean;
+  function detectDown(): boolean;
 
-  function inspect(toolSide?: string): LuaMultiReturn<[boolean, LuaTable | Object | string]>;
-  function inspectUp(toolSide?: string): LuaMultiReturn<[boolean, LuaTable | Object | string]>;
-  function inspectDown(toolSide?: string): LuaMultiReturn<[boolean, LuaTable | Object | string]>;
+  function inspect(): LuaMultiReturn<[boolean, LuaTable | Object | string]>;
+  function inspectUp(): LuaMultiReturn<[boolean, LuaTable | Object | string]>;
+  function inspectDown(): LuaMultiReturn<[boolean, LuaTable | Object | string]>;
 
-  function compare(toolSide?: string): boolean;
-  function compareUp(toolSide?: string): boolean;
-  function compareDown(toolSide?: string): boolean;
+  function compare(): boolean;
+  function compareUp(): boolean;
+  function compareDown(): boolean;
 
-  function drop(toolSide?: string): boolean;
-  function dropUp(toolSide?: string): boolean;
-  function dropDown(toolSide?: string): boolean;
+  function drop(count?: number): LuaMultiReturn<[boolean, string | undefined]>;
+  function dropUp(count?: number): LuaMultiReturn<[boolean, string | undefined]>;
+  function dropDown(count?: number): LuaMultiReturn<[boolean, string | undefined]>;
 
-  function suck(toolSide?: string): boolean;
-  function suckUp(toolSide?: string): boolean;
-  function suckDown(toolSide?: string): boolean;
+  function suck(count?: number): LuaMultiReturn<[boolean, string | undefined]>;
+  function suckUp(count?: number): LuaMultiReturn<[boolean, string | undefined]>;
+  function suckDown(count?: number): LuaMultiReturn<[boolean, string | undefined]>;
 
-  function refuel(): boolean;
-  function refuel(quantity: number): boolean;
-  function getFuelLevel(): number;
-  function getFuelLimit(): number;
+  function refuel(count?: number): LuaMultiReturn<[true, undefined] | [false, string]>;
+  function getFuelLevel(): number | 'unlimited';
+  function getFuelLimit(): number | 'unlimited';
 
   function transferTo(slotNum: number, quantity?: number): boolean;
 }
