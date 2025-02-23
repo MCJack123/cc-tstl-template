@@ -11,8 +11,8 @@
     "typescript": "^5.1.0",
     "@jackmacwindows/lua-types": "^2.13.2",
     "@jackmacwindows/typescript-to-lua": "^1.22.0",
-    "@jackmacwindows/craftos-types": "^1.1.1",
-    "@jackmacwindows/cc-types": "^1.0.0"
+    "@jackmacwindows/craftos-types": "file:types/craftos",
+    "@jackmacwindows/cc-types": "file:types/cc"
   },
   "author": "JackMacWindows",
   "license": "MIT"
