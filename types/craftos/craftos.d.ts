@@ -169,7 +169,7 @@ type WebSocketOptions = {
 
 /** @noSelf */
 declare class HTTPResponse {
-    public getResponseCode(): number;
+    public getResponseCode(): LuaMultiReturn<[number, string]>;
     public getResponseHeaders(): LuaMap<string, string>;
     public read(count?: number): string | number | undefined;
     public readLine(withTrailing: boolean): string | undefined;
@@ -741,8 +741,8 @@ declare namespace textutils {
     function serialiseJSON(tab: any, options: SerializeJSONOptions): string;
     function unserialize(str: string): any;
     function unserialise(str: string): any;
-    function unserializeJSON(str: string, options?: UnserializeJSONOptions): any;
-    function unserialiseJSON(str: string, options?: UnserializeJSONOptions): any;
+    function unserializeJSON(str: string, options?: UnserializeJSONOptions): LuaMultiReturn<[any, string | undefined]>;
+    function unserialiseJSON(str: string, options?: UnserializeJSONOptions): LuaMultiReturn<[any, string | undefined]>;
     function urlEncode(url: string): string;
     function complete(searchText: string, searchTable?: any): string[];
 }
